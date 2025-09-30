@@ -44,12 +44,12 @@ namespace TextRPG
     }
     public class PlayerInfo
     {
-        static int level = 10;
-        static string name = "Carl";
-        static string job = "Warrior";
-        static int attack = 5;
-        static int defense = 2;
-        static int hp = 100;
-        static int gold = 1000;
+        public int level = 10;
+        public string name = "Carl";
+        public string job = "Warrior";
+        public int attack = 5;
+        public int defense = 2;
+        public int hp = 100;
+        public int gold = 1000;
     }
 }
