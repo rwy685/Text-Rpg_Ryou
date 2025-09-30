@@ -20,21 +20,20 @@ namespace TextRPG
                 Console.WriteLine("원하시는 행동을 입력해주세요. >>");
                 
                 int input = int.Parse(Console.ReadLine());
-                if (input == 1)
+                switch (input)
                 {
-                    Console.WriteLine("상태보기를 선택했습니다.");
-                    break;
-                }
-                else if (input == 2)
-                {
-                    Console.WriteLine("인벤토리를 선택했습니다.");
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("잘못된 입력입니다.");
-                }
+                    case 1:
+                        Console.WriteLine("상태보기를 선택했습니다.");
+                        break;
+                    case 2:
+                        Console.WriteLine("인벤토리를 선택했습니다.");
+                        break;
 
+                    default:
+                        Console.WriteLine("잘못된 입력입니다.");
+                        Console.Clear();
+                        break;
+                }
             }
         }
         static void Main(string[] args)
@@ -43,6 +42,14 @@ namespace TextRPG
             intro.intromessage();
         }
     }
-
- 
+    public class PlayerInfo
+    {
+        static int level = 10;
+        static string name = "Carl";
+        static string job = "Warrior";
+        static int attack = 5;
+        static int defense = 2;
+        static int hp = 100;
+        static int gold = 1000;
+    }
 }

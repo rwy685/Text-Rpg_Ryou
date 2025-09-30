@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\BootCamp\\Study_Card\\Text-Rpg_Ryou\\Text_RPG\\",
+  "WorkspaceRootPath": "C:\\BootCamp\\Text-Rpg_Ryou\\Text_RPG\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E849EE72-4A85-442E-B58B-1F7C0C897242}|Text_RPG\\Text_RPG.csproj|c:\\bootcamp\\study_card\\text-rpg_ryou\\text_rpg\\text_rpg\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E849EE72-4A85-442E-B58B-1F7C0C897242}|Text_RPG\\Text_RPG.csproj|c:\\bootcamp\\text-rpg_ryou\\text_rpg\\text_rpg\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E849EE72-4A85-442E-B58B-1F7C0C897242}|Text_RPG\\Text_RPG.csproj|solutionrelative:text_rpg\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -20,11 +20,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\BootCamp\\Study_Card\\Text-Rpg_Ryou\\Text_RPG\\Text_RPG\\Program.cs",
+              "DocumentMoniker": "C:\\BootCamp\\Text-Rpg_Ryou\\Text_RPG\\Text_RPG\\Program.cs",
               "RelativeDocumentMoniker": "Text_RPG\\Program.cs",
-              "ToolTip": "C:\\BootCamp\\Study_Card\\Text-Rpg_Ryou\\Text_RPG\\Text_RPG\\Program.cs",
+              "ToolTip": "C:\\BootCamp\\Text-Rpg_Ryou\\Text_RPG\\Text_RPG\\Program.cs",
               "RelativeToolTip": "Text_RPG\\Program.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAACIAAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwDMAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-30T05:31:08.681Z",
               "EditorCaption": ""
