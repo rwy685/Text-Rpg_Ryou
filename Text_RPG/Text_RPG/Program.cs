@@ -92,10 +92,6 @@ namespace TextRPG
             Intro intro = new Intro();
             PlayerInfo playerinfo = new PlayerInfo();
             bool isGameStart = true;
-         
-
-
-
 
             while (isGameStart) // if문으로 하자
             {
