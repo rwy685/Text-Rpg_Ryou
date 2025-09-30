@@ -64,95 +64,58 @@ namespace TextRPG
             int input = int.Parse(Console.ReadLine());
             return input;
         }
+
+    }
         public enum StatType
         {
             Attack,
             Defense
         }
-        public class Item // 배열형, 리스트로 다시 작업. -> items 
+    public class Item // 배열형, 리스트로 다시 작업. -> items 
+    {
+        public string Name { get; set; }
+        public StatType Type { get; set; }   // 공격력 / 방어력 구분
+        public int Value { get; set; }       // 수치 (예: +5)
+        public string Description { get; set; }
+
+        public Item(string name, StatType type, int value, string description)
         {
-            public string Name { get; set; }
-            public StatType Type { get; set; }   // 공격력 / 방어력 구분
-            public int Value { get; set; }       // 수치 (예: +5)
-            public string Description { get; set; }
-
-            public Item(string name, StatType type, int value, string description)
-            {
-                Name = name;
-                Type = type;
-                Value = value;
-                Description = description;
-            }
-
-            public void DisplayInfo()
-            {
-                Console.WriteLine($"{Name} | {Type} +{Value} | {Description}");
-            }
-            public List<Item> ItemList { get; private set; }
-            public Item[] ItemArray => ItemList.ToArray();  // 필요하면 배열처럼 접근 가능
-
-            public Item()
-            {
-                ItemList = new List<Item>
-        {
-            new Item("무쇠갑옷", StatType.Defense, 5, "무쇠로 만들어져 튼튼한 갑옷입니다."),
-            new Item("낡은 검", StatType.Attack, 2, "쉽게 볼 수 있는 낡은 검입니다."),
-            new Item("연습용 창", StatType.Attack, 3, "검보다는 그대로 창이 다루기 쉽죠.")
-        };
-            }
-
-            public void DisplayItemById(int id)
-            {
-                int index = id - 1;
-                if (index >= 0 && index < ItemList.Count)
-                    ItemList[index].DisplayInfo();
-                else
-                    Console.WriteLine("해당 아이템이 존재하지 않습니다.");
-            }
-
-            public void DisplayAllItems()
-            {
-                for (int i = 0; i < ItemList.Count; i++)
-                {
-                    Console.Write($"{i + 1}. ");
-                    ItemList[i].DisplayInfo();
-                }
-            }
-
+            Name = name;
+            Type = type;
+            Value = value;
+            Description = description;
         }
-     
 
-        
-
+       
         static void Main(string[] args)
         {
             Intro intro = new Intro();
             PlayerInfo playerinfo = new PlayerInfo();
             bool isGameStart = true;
-            Item item = new Item();
-            
+         
+
 
 
 
             while (isGameStart) // if문으로 하자
             {
-                
+
                 int choice = intro.intromessage();
-                
-                if(choice == 1)
+
+                if (choice == 1)
                 {
                     bool inStat = true;
                     while (inStat)
                     {
                         int back = playerinfo.DisplayPinfo();
-                        if(back == 0)
+                        if (back == 0)
                         {
                             Console.Clear();
                             inStat = false; // intro로 돌아가기
                         }
                         else
                         {
-                            
+
                             Console.Clear();
                             Console.WriteLine("=== 0을 눌러서 돌아가주세요. ===");
                         }
@@ -160,8 +123,7 @@ namespace TextRPG
                 }
                 else if (choice == 2)
                 {
-
-                    item.DisplayAllItems();
+ 
                 }
 
                 else
@@ -171,8 +133,15 @@ namespace TextRPG
 
             }
 
+
+
+
+
         }
     }
 
-    
+
+
 }
+
+
