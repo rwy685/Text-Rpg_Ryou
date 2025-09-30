@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Net.Http.Headers;
+using System.Reflection.Metadata.Ecma335;
 
 namespace TextRPG
 {
@@ -55,24 +56,57 @@ namespace TextRPG
         public int hp = 100;
         public int gold = 1000;
 
-        public void DisplayPinfo(Intro intro)
+        public int DisplayPinfo()
         {
             Console.WriteLine($"LV.{level}\n{name}({job})\n공격력: {attack}\n방어력:" +
                               $"{defense}\n체력: {hp}\nGold: {gold}\n\n" +
                               $"0. 나가기\n원하시는 행동을 입력해주세요.\n>>");
             int input = int.Parse(Console.ReadLine());
-            if (input == 0)
+            return input;
+        }
+        public class Items
+        {
+            string[] itemname = new string[3];
+            int[] effect = new int[3];
+            string[] type = new string[3];
+            string[] Description = new string[3];
+
+            public Items()
             {
-                Console.Clear();
-                intro.intromessage();
+                itemname[0] = "무쇠갑옷";
+                effect[0] = 5;
+                type[0] = "방어력";
+                Description[0] = "무쇠로 만들어져 튼튼한 갑옷입니다.";
+
+                itemname[1] = "낡은 검";
+                effect[1] = 2;
+                type[1] = "공격력";
+                Description[1] = "쉽게 볼 수 있는 낡은 검 입니다.";
+
+                itemname[2] = "연습용 창";
+                effect[2] = 3;
+                type[2] = "공격력";
+                Description[2] = "검보다는 그대로 창이 다루기 쉽죠.";
+            }
+
+            public void DisplayItem(int index)
+            {
+                Console.WriteLine($"{itemname[index]} | {type[index]} + {effect[index]} | {Description[index]}");
             }
         }
+     
+
+        
+
         static void Main(string[] args)
         {
             Intro intro = new Intro();
             PlayerInfo playerinfo = new PlayerInfo();
             bool isGameStart = true;
-   
+            Items item = new Items();
+            
+
+
 
             while (isGameStart)
             {
@@ -83,15 +117,24 @@ namespace TextRPG
                 {
 
                     case 1:
-                        playerinfo.DisplayPinfo(intro);
+                        int back = playerinfo.DisplayPinfo();
+                        if (back == 0)
+                        {
+                            Console.Clear();
+                            continue; // Intro 메뉴 다시 출력
+                        }
+                        else
+                        {
+                            Console.WriteLine("숫자를 다시 입력해주세요");
+                        }
                         break;
 
                     case 2:
-                        Console.WriteLine("인벤 없음");
+                        item.DisplayItem(1);
                         break;
 
                     default:
-                        isGameStart = false;
+                        Console.WriteLine("숫자를 다시 입력해주세요");
                         break;
                 }
 
