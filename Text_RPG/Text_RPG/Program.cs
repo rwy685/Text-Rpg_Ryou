@@ -55,7 +55,7 @@ namespace TextRPG
         public int hp = 100;
         public int gold = 1000;
 
-        public void DisplayPinfo()
+        public void DisplayPinfo(Intro intro)
         {
             Console.WriteLine($"LV.{level}\n{name}({job})\n공격력: {attack}\n방어력:" +
                               $"{defense}\n체력: {hp}\nGold: {gold}\n\n" +
@@ -63,7 +63,8 @@ namespace TextRPG
             int input = int.Parse(Console.ReadLine());
             if (input == 0)
             {
-                
+                Console.Clear();
+                intro.intromessage();
             }
         }
         static void Main(string[] args)
@@ -77,14 +78,12 @@ namespace TextRPG
             {
                 
                 int choice = intro.intromessage();
-
+                
                 switch (choice)
                 {
-                    case 0: Console.Clear();
-                        break; // 다시 intro 실행
 
                     case 1:
-                        playerinfo.DisplayPinfo();
+                        playerinfo.DisplayPinfo(intro);
                         break;
 
                     case 2:
