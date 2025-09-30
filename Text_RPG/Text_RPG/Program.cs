@@ -75,8 +75,8 @@ namespace TextRPG
 
             while (isGameStart)
             {
-                intro.intromessage();
-                int choice = int.Parse(Console.ReadLine());
+                
+                int choice = intro.intromessage();
 
                 switch (choice)
                 {
