@@ -64,7 +64,7 @@ namespace TextRPG
             int input = int.Parse(Console.ReadLine());
             return input;
         }
-        public class Items
+        public class Items // 배열형, 리스트로 다시 작업. -> items 
         {
             string[] itemname = new string[3];
             int[] effect = new int[3];
@@ -108,7 +108,7 @@ namespace TextRPG
 
 
 
-            while (isGameStart)
+            while (isGameStart) // if문으로 하자
             {
                 
                 int choice = intro.intromessage();
