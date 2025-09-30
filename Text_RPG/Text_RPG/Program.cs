@@ -35,7 +35,7 @@ namespace TextRPG
  
                         Console.Clear();
                         Console.WriteLine("인벤토리를 선택했습니다.\n");
-                        break;
+                        return 2;
                     default:
                         Console.WriteLine("잘못된 입력입니다.");
                         Console.Clear();
@@ -64,35 +64,61 @@ namespace TextRPG
             int input = int.Parse(Console.ReadLine());
             return input;
         }
-        public class Items // 배열형, 리스트로 다시 작업. -> items 
+        public enum StatType
         {
-            string[] itemname = new string[3];
-            int[] effect = new int[3];
-            string[] type = new string[3];
-            string[] Description = new string[3];
+            Attack,
+            Defense
+        }
+        public class Item // 배열형, 리스트로 다시 작업. -> items 
+        {
+            public string Name { get; set; }
+            public StatType Type { get; set; }   // 공격력 / 방어력 구분
+            public int Value { get; set; }       // 수치 (예: +5)
+            public string Description { get; set; }
 
-            public Items()
+            public Item(string name, StatType type, int value, string description)
             {
-                itemname[0] = "무쇠갑옷";
-                effect[0] = 5;
-                type[0] = "방어력";
-                Description[0] = "무쇠로 만들어져 튼튼한 갑옷입니다.";
-
-                itemname[1] = "낡은 검";
-                effect[1] = 2;
-                type[1] = "공격력";
-                Description[1] = "쉽게 볼 수 있는 낡은 검 입니다.";
-
-                itemname[2] = "연습용 창";
-                effect[2] = 3;
-                type[2] = "공격력";
-                Description[2] = "검보다는 그대로 창이 다루기 쉽죠.";
+                Name = name;
+                Type = type;
+                Value = value;
+                Description = description;
             }
 
-            public void DisplayItem(int index)
+            public void DisplayInfo()
             {
-                Console.WriteLine($"{itemname[index]} | {type[index]} + {effect[index]} | {Description[index]}");
+                Console.WriteLine($"{Name} | {Type} +{Value} | {Description}");
             }
+            public List<Item> ItemList { get; private set; }
+            public Item[] ItemArray => ItemList.ToArray();  // 필요하면 배열처럼 접근 가능
+
+            public Item()
+            {
+                ItemList = new List<Item>
+        {
+            new Item("무쇠갑옷", StatType.Defense, 5, "무쇠로 만들어져 튼튼한 갑옷입니다."),
+            new Item("낡은 검", StatType.Attack, 2, "쉽게 볼 수 있는 낡은 검입니다."),
+            new Item("연습용 창", StatType.Attack, 3, "검보다는 그대로 창이 다루기 쉽죠.")
+        };
+            }
+
+            public void DisplayItemById(int id)
+            {
+                int index = id - 1;
+                if (index >= 0 && index < ItemList.Count)
+                    ItemList[index].DisplayInfo();
+                else
+                    Console.WriteLine("해당 아이템이 존재하지 않습니다.");
+            }
+
+            public void DisplayAllItems()
+            {
+                for (int i = 0; i < ItemList.Count; i++)
+                {
+                    Console.Write($"{i + 1}. ");
+                    ItemList[i].DisplayInfo();
+                }
+            }
+
         }
      
 
@@ -103,7 +129,7 @@ namespace TextRPG
             Intro intro = new Intro();
             PlayerInfo playerinfo = new PlayerInfo();
             bool isGameStart = true;
-            Items item = new Items();
+            Item item = new Item();
             
 
 
@@ -113,29 +139,34 @@ namespace TextRPG
                 
                 int choice = intro.intromessage();
                 
-                switch (choice)
+                if(choice == 1)
                 {
-
-                    case 1:
+                    bool inStat = true;
+                    while (inStat)
+                    {
                         int back = playerinfo.DisplayPinfo();
-                        if (back == 0)
+                        if(back == 0)
                         {
                             Console.Clear();
-                            continue; // Intro 메뉴 다시 출력
+                            inStat = false; // intro로 돌아가기
                         }
                         else
                         {
-                            Console.WriteLine("숫자를 다시 입력해주세요");
+                            
+                            Console.Clear();
+                            Console.WriteLine("=== 0을 눌러서 돌아가주세요. ===");
                         }
-                        break;
+                    }
+                }
+                else if (choice == 2)
+                {
 
-                    case 2:
-                        item.DisplayItem(1);
-                        break;
+                    item.DisplayAllItems();
+                }
 
-                    default:
-                        Console.WriteLine("숫자를 다시 입력해주세요");
-                        break;
+                else
+                {
+                    isGameStart = false;
                 }
 
             }
