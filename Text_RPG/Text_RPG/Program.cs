@@ -14,9 +14,9 @@ namespace TextRPG
     {
         public void intromessage()
         {
-            Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.\n이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다.\n 1. 상태보기 \n 2. 인벤토리");
             while (true)
             {
+                Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.\n이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다.\n 1. 상태보기 \n 2. 인벤토리");
                 Console.WriteLine("원하시는 행동을 입력해주세요. >>");
                 
                 int input = int.Parse(Console.ReadLine());
