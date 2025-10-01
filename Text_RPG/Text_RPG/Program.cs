@@ -13,7 +13,7 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.Design;
 
-namespace TextRPG
+namespace TextRPG // 공유를 위한 클래스 써보기
 {
     public class Intro
     {
