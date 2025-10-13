@@ -1,0 +1,53 @@
+{
+  "Player": {
+    "level": 2,
+    "name": "Carl",
+    "job": "Warrior",
+    "baseAttack": 5.5,
+    "baseDefense": 3,
+    "attack": 9,
+    "defense": 7,
+    "hp": 120,
+    "gold": 2870,
+    "exp": 60,
+    "stamina": 110,
+    "maxHp": 120,
+    "maxStamina": 110
+  },
+  "Inventory": {
+    "Items": [
+      {
+        "Name": "\uBB34\uC1E0\uAC11\uC637",
+        "Type": 1,
+        "Effect": 5,
+        "Description": "\uBB34\uC1E0\uB85C \uB9CC\uB4E4\uC5B4\uC838 \uD2BC\uD2BC\uD55C \uAC11\uC637\uC785\uB2C8\uB2E4.",
+        "IsEquipped": true,
+        "Price": 700
+      },
+      {
+        "Name": "\uB0A1\uC740 \uAC80",
+        "Type": 0,
+        "Effect": 2,
+        "Description": "\uC27D\uAC8C \uBCFC \uC218 \uC788\uB294 \uB0A1\uC740 \uAC80 \uC785\uB2C8\uB2E4.",
+        "IsEquipped": false,
+        "Price": 600
+      },
+      {
+        "Name": "\uC5F0\uC2B5\uC6A9 \uCC3D",
+        "Type": 0,
+        "Effect": 3,
+        "Description": "\uAC80\uBCF4\uB2E4\uB294 \uADF8\uB300\uB85C \uCC3D\uC774 \uB2E4\uB8E8\uAE30 \uC27D\uC8E0.",
+        "IsEquipped": false,
+        "Price": 800
+      },
+      {
+        "Name": "\uB9C8\uBC95 \uC9C0\uD321\uC774",
+        "Type": 0,
+        "Effect": 4,
+        "Description": " \uB9C8\uBC95\uC73C\uB85C \uB41C \uD654\uC0B4\uC774 \uB098\uAC00\uB294 \uC9C0\uD321\uC774\uC785\uB2C8\uB2E4.",
+        "IsEquipped": true,
+        "Price": 1200
+      }
+    ]
+  }
+}

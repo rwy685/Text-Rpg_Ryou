@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Numerics;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using static TextRPG.Patrol;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.IO;
+using System.Xml.Serialization;
+
+
 
 
 namespace TextRPG // 공유를 위한 클래스 써보기
@@ -29,7 +26,7 @@ namespace TextRPG // 공유를 위한 클래스 써보기
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.\n" +
                               "이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다.\n " +
-                              "1. 상태보기 \n 2. 인벤토리\n 3. 랜덤 모험\n 4. 마을 순찰하기\n 5. 훈련하기\n 6. 상점\n 7. 던전입장\n 8. 휴식하기");
+                              "1. 상태보기 \n 2. 인벤토리\n 3. 랜덤 모험\n 4. 마을 순찰하기\n 5. 훈련하기\n 6. 상점\n 7. 던전입장\n 8. 휴식하기\n 9. 게임 저장");
             Console.WriteLine("원하시는 행동을 입력해주세요. >>");
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("=======================================================");
@@ -206,8 +203,13 @@ namespace TextRPG // 공유를 위한 클래스 써보기
     
     public class Inventory
     {
-        public List<Item> Items { get; private set; }
+        public List<Item> Items { get;  set; }
 
+
+        public Inventory()
+        {
+            InitializeItem();
+        }
         public void InitializeItem()
         {
             Items = new List<Item>()
@@ -1010,6 +1012,63 @@ namespace TextRPG // 공유를 위한 클래스 써보기
         }
     }
 
+    public static class GameSaveManager
+    {
+        private static string savePath = "savegame.json";
+
+        //저장하기
+        public static void SaveGame(PlayerInfo player, Inventory inventory)
+        {
+            var saveData = new SaveData
+            {
+               Player = player,
+               Inventory = inventory            
+            };
+            var options = new JsonSerializerOptions()
+            {
+                WriteIndented = true,
+                IncludeFields = true
+            };
+            string json = JsonSerializer.Serialize(saveData, options);
+            File.WriteAllText(savePath, json);
+            Console.WriteLine("게임이 저장되었습니다");
+
+        }
+        
+        //불러오기
+        public static bool LoadGame(out PlayerInfo player, out Inventory inventory)
+        {
+            if (!File.Exists(savePath))
+            {
+                Console.WriteLine("저장된 데이터가 없습니다.");
+                player = null;
+                inventory = null;
+                return false;
+            }
+
+            string json = File.ReadAllText(savePath);
+
+            var options = new JsonSerializerOptions()
+            {
+                IncludeFields = true
+            };
+            var saveData = JsonSerializer.Deserialize<SaveData>(json, options);
+
+            player = saveData.Player;
+            inventory = saveData.Inventory;
+
+            Console.WriteLine("저장된 데이터를 불러왔습니다.");
+            return true;
+
+        }
+    }
+
+    public class SaveData
+    {
+        public PlayerInfo Player { get; set; }
+        public Inventory Inventory { get; set; }
+    }
+
     public class Game
     {
         static void Main(string[] args)
@@ -1017,24 +1076,59 @@ namespace TextRPG // 공유를 위한 클래스 써보기
             Intro intro = new Intro();
             PlayerInfo playerinfo = new PlayerInfo();
             Inventory inventory = new Inventory();
+            
+            //저장 코드
+            Console.WriteLine("저장된 게임을 불러오시겠습니까? (Y/N)");
+            string choice = Console.ReadLine().ToUpper();
+            
+            if (choice == "Y")
+            {
+                bool loaded = GameSaveManager.LoadGame(out playerinfo, out inventory);
+
+                if (loaded)
+                {
+                    Console.WriteLine("불러오기에 성공했습니다.");
+                    playerinfo.UpdateEffect(inventory.Items);
+                }
+                else
+                {
+                    Console.WriteLine("저장된 데이터를 찾을 수 없습니다. 신규 게임을 시작합니다.");
+                    Console.ReadKey();
+                    playerinfo = new PlayerInfo();
+                    inventory = new Inventory();
+                    inventory.InitializeItem();
+                    
+                }
+            }
+
+            else
+            {
+                Console.WriteLine("신규 게임을 시작합니다.");
+                Console.ReadKey();
+                playerinfo = new PlayerInfo();
+                inventory = new Inventory();
+                inventory.InitializeItem();
+            }
+
             Adventure adventure = new Adventure();
             Patrol patrol = new Patrol();
             Training training = new Training();
             Store store = new Store();
             Rest rest = new Rest();
             Dungeon dungeon = new Dungeon();
+
             adventure.EventInitialized();
-            inventory.InitializeItem();
             store.StoreInitialize();
+
             bool isGameStart = true;
 
 
             while (isGameStart)
             {
                 Console.Clear();
-                int choice = intro.intromessage();
+                int choiceNum = intro.intromessage();
 
-                switch (choice)
+                switch (choiceNum)
                 {
                     case 1:
                         Console.Clear();
@@ -1079,6 +1173,10 @@ namespace TextRPG // 공유를 위한 클래스 써보기
                         rest.Recharge(playerinfo);
                         break;
 
+                    case 9:
+                        GameSaveManager.SaveGame(playerinfo, inventory);
+                        Console.ReadKey();
+                        break;
                     default:
                         Console.WriteLine("해당하는 숫자를 입력해주세요");
                         Console.ReadLine();
